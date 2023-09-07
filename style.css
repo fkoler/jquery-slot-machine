@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.wrapper {
+    width: 600px;
+    height: 350px;
+    background-color: gray;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
+span {
+    font-size: 70px;
+    font-weight: bold;
+}
+
+input {
+    font-size: 30px;
+    border-radius: 5px;
+}
+
+#rez, #kreda {
+    font-size: 30px;
+}
+
+b {
+    color: darkred;
+    font-family: fantasy;
+}
+
+img {
+    width: 90px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
