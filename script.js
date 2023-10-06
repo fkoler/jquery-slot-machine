@@ -1,94 +1,81 @@
-$(document).ready(function() {
-    var firstPix = $("#first img");
-    var secondPix = $("#second img");
-    var thirdPix = $("#third img");
-    var credit = parseInt(prompt("Insert Credit", 500));
-    $("#num").html(credit);
+document.addEventListener("DOMContentLoaded", () => {
+    const firstPix = document.querySelector("#first img");
+    const secondPix = document.querySelector("#second img");
+    const thirdPix = document.querySelector("#third img");
+    let credit = parseInt(prompt("Insert Credit", 500));
+    const numElement = document.querySelector("#num");
+    const rezElement = document.querySelector("#rez");
 
-    var pix = ["img/apple.png", "img/bar.png", "img/bell.png", "img/cherry.png", "img/grape.png", "img/heart.png", "img/lemon.png", "img/seven.png", "img/waterm.png"];
+    numElement.innerHTML = credit;
 
-    var rand1;
-    var rand2;
-    var rand3;
+    const pix = [
+        "img/apple.png", "img/bar.png", "img/bell.png", "img/cherry.png",
+        "img/grape.png", "img/heart.png", "img/lemon.png", "img/seven.png", "img/waterm.png"
+    ];
 
-    function generateRandom() {
+    let rand1;
+    let rand2;
+    let rand3;
+
+    const generateRandom = () => {
         rand1 = Math.floor(Math.random() * pix.length);
         rand2 = Math.floor(Math.random() * pix.length);
         rand3 = Math.floor(Math.random() * pix.length);
-        console.log(rand1 + " " + rand2 + " " + rand3);
-        firstPix.attr("src", pix[rand1]);
-        secondPix.attr("src", pix[rand2]);
-        thirdPix.attr("src", pix[rand3]);
+        console.log(`${rand1} ${rand2} ${rand3}`);
+        firstPix.setAttribute("src", pix[rand1]);
+        secondPix.setAttribute("src", pix[rand2]);
+        thirdPix.setAttribute("src", pix[rand3]);
     };
 
-    $("#spin").click(function() {       
+    const playSound = (soundSrc) => {
+        const sound = new Audio(soundSrc);
+        sound.play();
+    };
 
-        if(credit > 0){
-            var interval = setInterval(generateRandom, 100);
-            $("#rez").html("");
+    document.querySelector("#spin").addEventListener("click", () => {
+        if (credit > 0) {
+            const interval = setInterval(generateRandom, 100);
+            rezElement.innerHTML = "";
 
-            var sound1 = {
-                push: new Howl({
-                    src: ["sounds/win.mp3"]
-                })
-            };
-            
-            var sound2 = {
-                push: new Howl({
-                    src: ["sounds/loose.mp3"]
-                })
-            };
-            
-            var sound3 = {
-                push: new Howl({
-                    src: ["sounds/jackpot.mp3"]
-                })
-            };
-            
-            var sound4 = {
-                push: new Howl({
-                    src: ["sounds/push.mp3"]
-                })
-            };
+            const sound4Src = "sounds/push.mp3";
+            playSound(sound4Src);
 
-            sound4.push.play();
-
-            setTimeout(function() {
-                if(rand1 == rand2 && rand2 == rand3) {
+            setTimeout(() => {
+                if (rand1 === rand2 && rand2 === rand3) {
                     console.log("JACKPOT!! YOU WON 1500!!");
-                    $("#rez").html("JACKPOT!! YOU WON 1500 &euro;!!");
+                    rezElement.innerHTML = "JACKPOT!! YOU WON 1500 &euro;!!";
                     credit += 1500;
-                    sound3.push.play();
-                    $("#num").html(credit);
-                } else if ((rand1 == rand2 && rand2 != rand3) || 
-                (rand2 == rand3 && rand1 != rand3) ||
-                (rand1 == rand3 && rand1 != rand2)) {
+                    playSound("sounds/jackpot.mp3");
+                } else if ((rand1 === rand2 && rand2 !== rand3) ||
+                    (rand2 === rand3 && rand1 !== rand3) ||
+                    (rand1 === rand3 && rand1 !== rand2)) {
                     console.log("YOU WON 200!");
-                    $("#rez").html("YOU WON 200 &euro;!");
+                    rezElement.innerHTML = "YOU WON 200 &euro;!";
                     credit += 200;
-                    sound1.push.play();
-                    $("#num").html(credit);
-                    $("#rez").css("color", "blue").css("font-weight", "bold");
+                    playSound("sounds/win.mp3");
+                    rezElement.style.color = "blue";
+                    rezElement.style.fontWeight = "bold";
                 } else {
                     console.log("You Lost 100");
-                    $("#rez").html("You Lost 100 &euro;");
+                    rezElement.innerHTML = "You Lost 100 &euro;";
                     credit -= 100;
-                    sound2.push.play();
-                    $("#num").html(credit);
-                    $("#rez").css("color", "black").css("font-weight", "bold");
-                };
+                    playSound("sounds/loose.mp3");
+                    rezElement.style.color = "black";
+                    rezElement.style.fontWeight = "bold";
+                }
+                numElement.innerHTML = credit;
                 clearInterval(interval);
             }, 3500);
-            
         } else {
-            $("#rez").html("GAME OVER !");
-            $("#spin").attr("disabled", "true");
-            $("#rez").css("color", "red").css("font-size", "50px").css("font-weight", "bold");
-        };
+            rezElement.innerHTML = "GAME OVER !";
+            document.querySelector("#spin").setAttribute("disabled", "true");
+            rezElement.style.color = "red";
+            rezElement.style.fontSize = "50px";
+            rezElement.style.fontWeight = "bold";
+        }
+    });
 
-        $("#newGame").click(function() {
-            location.reload();
-        });
-
+    document.querySelector("#newGame").addEventListener("click", () => {
+        location.reload();
     });
 });
