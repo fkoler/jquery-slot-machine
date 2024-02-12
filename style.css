@@ -1,18 +1,23 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: monospace;
     background-color: black;
     color: whitesmoke;
+    height: 100vh;
+    margin: 0;
 }
 
 .wrapper {
     width: 600px;
     height: 350px;
-    background-color: gray;
+    background-color: #808080;
     color: black;
     padding: 20px;
     text-align: center;
-    margin: auto;
+    margin: 0 auto;
     border-radius: 10px;
+    justify-content: center;
+    position: relative;
+    top: 27%;
 }
 
 span {
@@ -23,29 +28,22 @@ span {
 input {
     font-size: 30px;
     border-radius: 5px;
+    width: 180px;
 }
 
-#rez, #kreda {
+#rez,
+#kreda {
     font-size: 30px;
 }
 
 b {
-    color: darkred;
-    font-family: fantasy;
+    color: #8b0000;
 }
 
 img {
     width: 90px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+#newGame {
+    display: none;
+}
