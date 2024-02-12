@@ -60,6 +60,13 @@ $(document).ready(() => {
             $('#spin').attr('disabled', false);
             sound2.play();
         };
+
+        if (credit === 0) {
+            $('#spin').attr('style', 'display: none;');
+            $('#newGame').attr('style', 'display: inline-block;');
+            $('#rez').html('GAME OVER!');
+            $('#rez').css('color', 'red').css('font-size', '50px').css('font-weight', 'bold');
+        };
     };
 
     $('#spin').click(() => {
@@ -83,13 +90,6 @@ $(document).ready(() => {
                 handleSpinResult();
                 clearInterval(interval);
             }, 3500);
-        };
-
-        if (credit === 0) {
-            $('#spin').attr('display', 'none');
-            $('#newGame').attr('display', 'inline-block');
-            $('#rez').html('GAME OVER!');
-            $('#rez').css('color', 'red').css('font-size', '50px').css('font-weight', 'bold');
         };
     });
 
