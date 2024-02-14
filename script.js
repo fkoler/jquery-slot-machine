@@ -7,9 +7,9 @@ $(document).ready(() => {
 
     $('#num').html(credit);
 
-    const firstPic = $('#first img');
-    const secondPic = $('#second img');
-    const thirdPic = $('#third img');
+    const firstPic = $('#first');
+    const secondPic = $('#second');
+    const thirdPic = $('#third');
 
     const pix = [
         'img/apple.png',
@@ -27,6 +27,7 @@ $(document).ready(() => {
     const sound2 = new Audio('sounds/loose.mp3');
     const sound3 = new Audio('sounds/jackpot.mp3');
     const sound4 = new Audio('sounds/push.mp3');
+    const sound5 = new Audio('sounds/gameover.mp3');
 
     const generateRandom = () => Math.floor(Math.random() * pix.length);
 
@@ -41,8 +42,8 @@ $(document).ready(() => {
 
     const handleSpinResult = () => {
         if (rand1 === rand2 && rand2 === rand3) {
-            displayResult('JACKPOT!! YOU WON 1500 &euro;!!', 'green');
-            updateCredit(1500);
+            displayResult('JACKPOT!! YOU WON 1000 &euro;!!', 'green');
+            updateCredit(1000);
             $('#spin').attr('disabled', false);
             sound3.play();
         } else if (
@@ -58,14 +59,16 @@ $(document).ready(() => {
             displayResult('You Lost 100 &euro;', 'black');
             updateCredit(-100);
             $('#spin').attr('disabled', false);
-            sound2.play();
-        };
 
-        if (credit === 0) {
-            $('#spin').attr('style', 'display: none;');
-            $('#newGame').attr('style', 'display: inline-block;');
-            $('#rez').html('GAME OVER!');
-            $('#rez').css('color', 'red').css('font-size', '50px').css('font-weight', 'bold');
+            if (credit === 0) {
+                $('#spin').attr('style', 'display: none;');
+                $('#newGame').attr('style', 'display: inline-block;');
+                $('#rez').html('GAME OVER!');
+                $('#rez').css('color', 'red').css('font-size', '50px').css('font-weight', 'bold');
+                sound5.play();
+            } else {
+                sound2.play();
+            };
         };
     };
 
